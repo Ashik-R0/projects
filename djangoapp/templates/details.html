@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Tour Packages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      
+      color: #333;
+    }
+
+    /* Navbar styles */
+    nav {
+      background: rgba(184, 180, 180, 0.4);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .nav-links a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 30px 0 10px;
+    }
+
+    .package-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .package-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      max-width: 800px;
+      transition: transform 0.3s ease;
+    }
+
+    .package-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .package-card img {
+      width: 300px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .package-content {
+      padding: 20px;
+      flex: 1;
+    }
+
+    .package-content h3 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #222;
+    }
+
+    .package-content p {
+      margin: 8px 0;
+    }
+
+    .package-content a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: #5b69ff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .package-content a:hover {
+      background: #3a49c9;
+    }
+
+    @media (max-width: 768px) {
+      .package-card {
+        flex-direction: column;
+      }
+
+      .package-card img {
+        width: 100%;
+        height: 200px;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        margin-top: 10px;
+      }
+
+      .nav-links a {
+        margin: 5px 10px 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar Start -->
+  <nav>
+    <div>
+      <a href="{% url 'home' %}">
+        <img class="logo" src="{% static 'images/vacation.png' %}" alt="Logo">
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="{% url 'home' %}">Home</a>
+      
+      <a href="{% url 'booked_tours'%}">My bookings</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+
+  <h1>All Available Tour Packages</h1>
+  <div class="package-container">
+    {% for package in packages %}
+    <div class="package-card">
+      <img src="{{ package.image.url }}" alt="{{ package.title }}">
+      <div class="package-content">
+        <h3>{{ package.title }}</h3>
+        <p><strong>₹{{ package.price }}</strong></p>
+        <p>Duration: {{ package.duration }}</p>
+        <p>Location: {{ package.location }}</p>
+        <p>Start Date: {{ package.start_date }}</p>
+        <p>End Date: {{ package.end_date }}</p>
+        <a href="{% url 'explore' package.id %}">View Details</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
