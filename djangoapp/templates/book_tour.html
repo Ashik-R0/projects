@@ -77,13 +77,14 @@
       {% csrf_token %}
       <label for="number_of_people">Number of People:</label>
       <input type="number" name="number_of_people" min="1" required>
+      <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QXdkkjWfm9Bo26" async> </script> </form>
 
       <button type="submit">Confirm Booking</button>
     </form>
 
     <a href="{% url 'home' %}">← Back to Home</a>
   </div>
-  <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_QWfwTrGdrfV3No" async> </script> </form>
+  
 
 </body>
 </html>
